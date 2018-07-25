@@ -16,18 +16,19 @@ use Sonata\MediaBundle\Model\MediaInterface;
 use Sonata\MediaBundle\Twig\TokenParser\MediaTokenParser;
 use Sonata\MediaBundle\Twig\TokenParser\PathTokenParser;
 use Sonata\MediaBundle\Twig\TokenParser\ThumbnailTokenParser;
+use Twig\Extension\ExtensionInterface;
 
 class FormatterMediaExtension extends BaseProxyExtension
 {
     /**
-     * @var \Twig_Extension
+     * @var ExtensionInterface
      */
     protected $twigExtension;
 
     /**
-     * @param \Twig_Extension $twigExtension
+     * @param ExtensionInterface $twigExtension
      */
-    public function __construct(\Twig_Extension $twigExtension)
+    public function __construct(ExtensionInterface $twigExtension)
     {
         $this->twigExtension = $twigExtension;
     }
@@ -35,7 +36,7 @@ class FormatterMediaExtension extends BaseProxyExtension
     /**
      * {@inheritdoc}
      */
-    public function getAllowedTags()
+    public function getAllowedTags(): array
     {
         return [
             'media',
@@ -47,7 +48,7 @@ class FormatterMediaExtension extends BaseProxyExtension
     /**
      * {@inheritdoc}
      */
-    public function getAllowedMethods()
+    public function getAllowedMethods(): array
     {
         return [
             MediaInterface::class => [
@@ -59,7 +60,7 @@ class FormatterMediaExtension extends BaseProxyExtension
     /**
      * {@inheritdoc}
      */
-    public function getTokenParsers()
+    public function getTokenParsers(): array
     {
         return [
             new MediaTokenParser(__CLASS__),
@@ -69,9 +70,9 @@ class FormatterMediaExtension extends BaseProxyExtension
     }
 
     /**
-     * {@inheritdoc}
+     * @return ExtensionInterface
      */
-    public function getTwigExtension()
+    public function getTwigExtension(): ExtensionInterface
     {
         return $this->twigExtension;
     }
